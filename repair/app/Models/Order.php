@@ -6,14 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    protected $fillable = [
-        'firstname',
-        'middlename',
-        'lastname',
-        'email',
-        'login',
-        'password',
-        'tel',
-        'role',
-    ];
+    public function user()
+    {
+        return $this -> belongsTo(User::class);
+    }
+    public function status()
+    {
+        return $this -> belongsTo(Status::class);
+    }
 }
