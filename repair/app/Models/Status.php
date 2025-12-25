@@ -6,8 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Status extends Model
 {
-    public function status()
+    /*$protected $fillable = [
+        'title'
+    ];*/
+    public function orders()
     {
-        return $this -> belongsTo(Status::class);
+        return $this -> hasMany(Order::class);
     }
 }

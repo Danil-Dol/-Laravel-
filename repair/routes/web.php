@@ -4,15 +4,13 @@ use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 use Livewire\Volt\Volt;
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::redirect('/', '/login')->name('home');
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'admin'])->group(function () {
     Route::redirect('settings', 'settings/profile');
 
     Volt::route('settings/profile', 'settings.profile')->name('profile.edit');
@@ -29,4 +27,11 @@ Route::middleware(['auth'])->group(function () {
             ),
         )
         ->name('two-factor.show');
+
+    Volt::route('admin/orders', 'admin.orders')->name('admin.orders');
+});
+
+Route::middleware(['auth', 'user'])->group(function () {
+    Volt::route('orders', 'orders.index')->name('orders.index');
+    Volt::route('orders/create', 'orders.create')->name('orders.create');
 });

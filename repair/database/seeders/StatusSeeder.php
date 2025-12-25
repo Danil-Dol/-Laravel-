@@ -12,6 +12,11 @@ class StatusSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        $titles = ['Новая','В процессе','Завершена', 'Отменена'];
+
+        foreach ($titles as $title)
+        {
+            \App\Models\Status::firstOrCreate(['title' => '$title']);
+        }
     }
 }

@@ -60,7 +60,7 @@ class User extends Authenticatable
      */
     public function initials(): string
     {
-        return Str::of($this->name)
+        return Str::of($this->firstname)
             ->explode(' ')
             ->take(2)
             ->map(fn ($word) => Str::substr($word, 0, 1))
@@ -68,6 +68,15 @@ class User extends Authenticatable
     }
     public function orders()
     {
-        return $this -> belongsTo();
+        return $this -> hasMany(Order::class);
+    }
+
+    public function fullName(): string
+    {
+        return "{$this->lastname} {$this->firstname} {$this->lmiddlename}";
+    }
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin';
     }
 }
